@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Consulting - Formulaire d'inscription</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="challengeforms.css">
+</head>
+<body>
+    <div class="container">
+        <header class="form-header">
+            <h1><img src="Images/challengeconsulting.logo.jpeg" alt=""> Challenge Consulting</h1>
+            <p>Formulaire d'inscription aux formations</p>
+        </header>
+
+        <form id="inscriptionForm" method="POST">
+            <!-- Messages d'erreur globaux -->
+            <div id="erreurGlobale" class="erreur-message" style="display: none;"></div>
+
+            <!-- SECTION IDENTITÉ -->
+            <fieldset class="form-section">
+                <legend>Informations personnelles</legend>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nom">Nom *</label>
+                        <input 
+                            type="text" 
+                            id="nom" 
+                            name="nom" 
+                            placeholder="Votre nom" 
+                            required>
+                        <span class="erreur-field"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prenom">Prénom *</label>
+                        <input 
+                            type="text" 
+                            id="prenom" 
+                            name="prenom" 
+                            placeholder="Votre prénom" 
+                            required>
+                        <span class="erreur-field"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sexe">Sexe *</label>
+                        <select id="sexe" name="sexe" required>
+                            <option value="">-- Sélectionnez --</option>
+                            <option value="homme">Homme</option>
+                            <option value="femme">Femme</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                        <span class="erreur-field"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date_naissance">Date de naissance *</label>
+                        <input 
+                            type="date" 
+                            id="date_naissance" 
+                            name="date_naissance" 
+                            required>
+                        <span class="erreur-field"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telephone">Téléphone *</label>
+                        <input 
+                            type="tel" 
+                            id="telephone" 
+                            name="telephone" 
+                            placeholder="+229 01 61 04 83 42" 
+                            required>
+                        <span class="erreur-field"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="whatsapp">WhatsApp</label>
+                        <input 
+                            type="tel" 
+                            id="whatsapp" 
+                            name="whatsapp" 
+                            placeholder="Numéro WhatsApp">
+                        <span class="erreur-field"></span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SECTION CONTACT -->
+            <fieldset class="form-section">
+                <legend>Coordonnées</legend>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="nom@exemple.com" 
+                        required>
+                    <span class="erreur-field"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="adresse">Adresse *</label>
+                    <input 
+                        type="text" 
+                        id="adresse" 
+                        name="adresse" 
+                        placeholder="Numéro et rue" 
+                        required>
+                    <span class="erreur-field"></span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ville">Ville *</label>
+                        <input 
+                            type="text" 
+                            id="ville" 
+                            name="ville" 
+                            placeholder="Ville" 
+                            required>
+                        <span class="erreur-field"></span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SECTION FORMATION -->
+            <fieldset class="form-section">
+                <legend>Choix de la formation</legend>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="domaine">Domaine *</label>
+                        <select id="domaine" name="domaine" required>
+                            <option value="">-- Sélectionnez un domaine --</option>
+                            <option value="informatique">Informatique</option>
+                            <option value="audiovisuel">Audiovisuel</option>
+                            <option value="graphisme">Graphisme</option>
+                            <option value="serigraphie">Sérigraphie</option>
+                        </select>
+                        <span class="erreur-field"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formation">Formation *</label>
+                        <select id="formation" name="formation" disabled required>
+                            <option value="">Sélectionnez d'abord un domaine</option>
+                        </select>
+                        <span class="erreur-field"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Niveau *</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input 
+                                type="radio" 
+                                id="niveau_debutant" 
+                                name="niveau" 
+                                value="debutant" 
+                                required>
+                            <label for="niveau_debutant">Débutant</label>
+                        </div>
+                        <div class="radio-item">
+                            <input 
+                                type="radio" 
+                                id="niveau_intermediaire" 
+                                name="niveau" 
+                                value="intermediaire">
+                            <label for="niveau_intermediaire">Intermédiaire</label>
+                        </div>
+                        <div class="radio-item">
+                            <input 
+                                type="radio" 
+                                id="niveau_avance" 
+                                name="niveau" 
+                                value="avance">
+                            <label for="niveau_avance">Avancé</label>
+                        </div>
+                    </div>
+                    <span class="erreur-field"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>Mode de formation *</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input 
+                                type="radio" 
+                                id="mode_presentiel" 
+                                name="mode_formation" 
+                                value="presentiel" 
+                                required>
+                            <label for="mode_presentiel">Présentiel</label>
+                        </div>
+                        <div class="radio-item">
+                            <input 
+                                type="radio" 
+                                id="mode_distanciel" 
+                                name="mode_formation" 
+                                value="distanciel">
+                            <label for="mode_distanciel">Distanciel</label>
+                        </div>
+                        <div class="radio-item">
+                            <input 
+                                type="radio" 
+                                id="mode_hybride" 
+                                name="mode_formation" 
+                                value="hybride">
+                            <label for="mode_hybride">Hybride</label>
+                        </div>
+                    </div>
+                    <span class="erreur-field"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="horaire">Horaire préféré</label>
+                    <input 
+                        type="text" 
+                        id="horaire" 
+                        name="horaire" 
+                        placeholder="Ex : soir, week-end, horaire flexible">
+                    <span class="erreur-field"></span>
+                </div>
+            </fieldset>
+
+            <!-- SECTION OBJECTIF -->
+            <fieldset class="form-section">
+                <legend>Objectifs et découverte</legend>
+
+                <div class="form-group">
+                    <label for="objectif">Objectif *</label>
+                    <textarea 
+                        id="objectif" 
+                        name="objectif" 
+                        placeholder="Pourquoi voulez-vous suivre cette formation ?" 
+                        rows="4" 
+                        required></textarea>
+                    <small class="char-count">
+                        <span id="charCount">0</span> / 20 caractères minimum
+                    </small>
+                    <span class="erreur-field"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment_connu">Comment avez-vous connu Challenge Consulting ? *</label>
+                    <select id="comment_connu" name="comment_connu" required>
+                        <option value="">-- Sélectionnez --</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="ami">Ami</option>
+                        <option value="publicite">Publicité</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                    <span class="erreur-field"></span>
+                </div>
+            </fieldset>
+
+            <!-- SECTION CONDITIONS -->
+            <fieldset class="form-section">
+                <div class="checkbox-item">
+                    <input 
+                        type="checkbox" 
+                        id="conditions" 
+                        name="conditions" 
+                        required>
+                    <label for="conditions">J'accepte les conditions générales *</label>
+                    <span class="erreur-field"></span>
+                </div>
+            </fieldset>
+
+            <!-- BOUTON SUBMIT -->
+            <div class="form-actions">
+                <button type="submit" id="submitBtn" class="btn-submit" disabled>S'inscrire</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="challengeforms.js"></script>
+</body>
+</html>

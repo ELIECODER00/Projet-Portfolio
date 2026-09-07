@@ -2,6 +2,10 @@
    CHALLENGE CONSULTING - LOGIQUE FORMULAIRE
    ======================================== */
 
+// NOTE: This file was updated to integrate EmailJS for sending the form by email.
+// Replace the placeholders YOUR_EMAILJS_USER_ID, YOUR_SERVICE_ID and YOUR_TEMPLATE_ID
+// with values from your EmailJS account: https://www.emailjs.com/
+
 // ========== MAPPING DES FORMATIONS ==========
 const formationsMap = {
     informatique: [
@@ -312,6 +316,8 @@ function isValidDate(dateString) {
 
 /**
  * Gérer la soumission du formulaire
+ * Now integrates EmailJS to send the form by email. Configure EmailJS with your
+ * user ID, service ID and template ID (placeholders below).
  */
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -321,15 +327,52 @@ function handleFormSubmit(event) {
         return;
     }
     
-    // Si valide, afficher message de succès
-    // En production, envoyer les données au serveur ici
-    console.log('Formulaire soumis avec succès:', new FormData(form));
-    
-    // Afficher un message de succès (optionnel)
-    showSuccessMessage();
-    
-    // Optionnel : réinitialiser après un délai
-    // setTimeout(() => form.reset(), 2000);
+    // Désactiver le bouton pour éviter envois multiples
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi en cours...';
+
+    // EmailJS integration
+    // Make sure to replace these placeholders with your actual EmailJS values
+    const EMAILJS_USER_ID = 'YOUR_EMAILJS_USER_ID';
+    const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+
+    // If EmailJS is not loaded, fallback to success message with console log
+    if (typeof emailjs === 'undefined' || !emailjs.sendForm) {
+        console.warn('EmailJS non chargé. Vérifiez que le script CDN est inclus dans index.html');
+        console.log('Formulaire soumis (simulation):', new FormData(form));
+        showSuccessMessage();
+        // Réinitialiser bouton
+        submitBtn.disabled = !conditionsCheckbox.checked;
+        submitBtn.textContent = "S'inscrire";
+        return;
+    }
+
+    // Initialise EmailJS si nécessaire
+    if (emailjs.init && EMAILJS_USER_ID !== 'YOUR_EMAILJS_USER_ID') {
+        try {
+            emailjs.init(EMAILJS_USER_ID);
+        } catch (e) {
+            // init may already have been called; ignore
+        }
+    }
+
+    // Envoyer le formulaire via EmailJS
+    emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
+        .then((response) => {
+            console.log('SUCCESS!', response.status, response.text);
+            showSuccessMessage();
+        }, (err) => {
+            console.error('FAILED...', err);
+            erreurGlobale.textContent = '❌ Une erreur est survenue lors de l\'envoi. Veuillez réessayer plus tard.';
+            erreurGlobale.style.display = 'block';
+            erreurGlobale.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        })
+        .finally(() => {
+            // Réinitialiser le bouton
+            submitBtn.disabled = !conditionsCheckbox.checked;
+            submitBtn.textContent = "S'inscrire";
+        });
 }
 
 /**
@@ -362,6 +405,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialiser les formations (vides par défaut)
     updateFormations();
+    
+    // Optionnel: initialiser EmailJS si l'ID utilisateur est fourni
+    if (typeof emailjs !== 'undefined' && emailjs.init) {
+        // Note: replace the placeholder with your actual EmailJS user ID if you want init to run here.
+        const EMAILJS_USER_ID = 'YOUR_EMAILJS_USER_ID';
+        if (EMAILJS_USER_ID !== 'YOUR_EMAILJS_USER_ID') {
+            try { emailjs.init(EMAILJS_USER_ID); } catch (e) { /* ignore */ }
+        }
+    }
     
     console.log('✅ Formulaire Challenge Consulting initialisé');
 });
